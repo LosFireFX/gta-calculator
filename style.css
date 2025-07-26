@@ -1,0 +1,41 @@
+body{
+    margin: 0;
+    text-align: center;
+    background-color: #e1d798;
+}
+
+h1{
+    color: 	#4d784e;
+}
+
+#sous_texte{
+    font-style: italic;
+}
+
+button{
+    border: none;
+    border-radius: 5px;
+    background-color: #6ea171;
+    color: white;
+
+    transition: 0.3s ease-in;
+}
+
+button:hover{
+    transform: scale(1.2);
+}
+
+.ligne label {
+    display: inline-block;
+    width: 100px; /* largeur fixe pour aligner les inputs */
+}
+
+.ligne input[type="number"] {
+    width: 80px;
+    padding: 4px;
+    margin-bottom: 2px;
+}
+
+em{
+    font-style: normal;
+}
