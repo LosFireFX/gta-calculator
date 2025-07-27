@@ -3,10 +3,22 @@ body{
     text-align: center;
     background-color: #e1d798;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    cursor: url("../cursor.cur"), auto !important;
+
 }
 
-*{
-    cursor: url("../cursor.cur"), auto !important;
+#discord{
+    text-decoration: none;
+    color: 	#BA55D3;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+
+    transition: 0.4s ease-in-out;
+}
+
+#discord:hover{
+    text-decoration: underline;
+    color: #9932CC;
 }
 
 h1{
@@ -85,4 +97,3 @@ fieldset{
 .bonus-item label {
   flex: 1;
 }
-
