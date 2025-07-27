@@ -5,16 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <!-- IPHONE -->
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Cayo Calculator">
+    <link rel="manifest" href="manifest.json">
 </head>
 <body>
-    <h1>Cayo Calculator 🏝️​</h1>
-
-    <div>
-        <button type="button">Solo</button>
-        <button type="button">Duo</button>
-        <button type="button">Trio</button>
-        <button type="button">Quatuor</button>
-    </div>
+    <h1>🏝️ Cayo Calculator 🏝️​</h1>
+    <p>Voici un calculateur pour le braquage de Cayo Perico, <br>
+    <strong>​⚠️ ATTENTION ​⚠️ </strong>prenez ces informations avec des pincettes. <br>
+    N'hésutez pas à rejoindre le <a href="https://youtube.com" id="discord">DISCORD</a></p>
 
     <div>
         <h3>Veuillez choisir votre butin principal : </h3>
@@ -55,28 +58,30 @@
             <label for="argentSolo">Argent :</label>
             <input type="number" id="argentSolo" value="0"><br>
         </fieldset>
-    </div><br>
+    </div>
 
     <div>
-        <h3>Veuillez choisir le nombre personne ainsi que le poucentage :</h3>
-        <p id="sous_texte">Veuillez choisir les parts des autres joueurs, pensez à cochez avant de changer.</p>
+        <fieldset>
+            <h3>Veuillez choisir le nombre personne ainsi que le poucentage :</h3>
+            <p id="sous_texte">Veuillez choisir les parts des autres joueurs, pensez à cochez avant de changer.</p>
 
-        <label for="player1_active">Joueur 1</label>
-        <input type="checkbox" id="player1_active">
-        <input type="number" id="player1_pct" placeholder="Pourcentage"><br>
+            <label for="player1_active">Joueur 1</label>
+            <input type="checkbox" id="player1_active">
+            <input type="number" id="player1_pct" placeholder="Pourcentage"><br>
 
-        <label for="player2_active">Joueur 2</label>
-        <input type="checkbox" id="player2_active">
-        <input type="number" id="player2_pct" placeholder="Pourcentage"><br>
+            <label for="player2_active">Joueur 2</label>
+            <input type="checkbox" id="player2_active">
+            <input type="number" id="player2_pct" placeholder="Pourcentage"><br>
 
-        <label for="player3_active">Joueur 3</label>
-        <input type="checkbox" id="player3_active">
-        <input type="number" id="player3_pct" placeholder="Pourcentage"><br>
+            <label for="player3_active">Joueur 3</label>
+            <input type="checkbox" id="player3_active">
+            <input type="number" id="player3_pct" placeholder="Pourcentage"><br>
 
-        <label for="player4_active">Joueur 4</label>
-        <input type="checkbox" id="player4_active">
-        <input type="number" id="player4_pct" placeholder="Pourcentage"><br>
-    </div><br>
+            <label for="player4_active">Joueur 4</label>
+            <input type="checkbox" id="player4_active">
+            <input type="number" id="player4_pct" placeholder="Pourcentage"><br>
+        </fieldset>
+    </div>
     <div>
         <fieldset id="bonus">
             <h3>Veuillez choisir les bonus (facultatif)</h3>
@@ -125,7 +130,7 @@
 
     </div>
 
-    <button type="button">Aléatoire </button><br>
+    <button type="button">Partagez </button><br>
     
     <button type="button" id="calculBtn">Calculez</button>
     <div id="result" style="margin-top:20px; padding:10px; border:none;"></div>
