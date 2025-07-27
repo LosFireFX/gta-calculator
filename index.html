@@ -10,6 +10,13 @@
     <h1>Cayo Calculator 🏝️​</h1>
 
     <div>
+        <button type="button">Solo</button>
+        <button type="button">Duo</button>
+        <button type="button">Trio</button>
+        <button type="button">Quatuor</button>
+    </div>
+
+    <div>
         <h3>Veuillez choisir votre butin principal : </h3>
         <label for="principal">Butin Principal :</label>
         <select name="principal" id=""> 
@@ -23,27 +30,31 @@
     </div>
     
     <div class="ligne">
-        <h3>Veuillez choisir votre butin secondaire :</h3>
-        <p id="sous_texte">Ces butins seront disponible qu'à plusieurs</p>
+        <fieldset id="test">
+            <h3>Veuillez choisir votre butin secondaire :</h3>
+            <p id="sous_texte">Ces butins seront disponible qu'à plusieurs</p>
 
-        <label for="gold">Or :</label>
-        <input type="number" id="gold" value="0"><br>
-        <label for="art">Tableaux :</label>
-        <input type="number" id="art" value="0"><br>
-        <label for="money">Argent :</label>
-        <input type="number" id="money" value="0"><br>
+            <label for="gold">Or :</label>
+            <input type="number" id="gold" value="0"><br>
+            <label for="art">Tableaux :</label>
+            <input type="number" id="art" value="0"><br>
+            <label for="money">Argent :</label>
+            <input type="number" id="money" value="0"><br>
+        </fieldset>
     </div>
 
     <div class="ligne">
-        <h3>Veuillez choisir votre butin secondaire :</h3>
-        <p id="sous_texte">Ces butins seront disponible aussi en solo</p>
+        <fieldset>
+            <h3>Veuillez choisir votre butin secondaire :</h3>
+            <p id="sous_texte">Ces butins seront disponible aussi en solo</p>
 
-        <label for="cocaine">Cocaïne :</label>
-        <input type="number" id="cocaine" value="0"><br>
-        <label for="cannabis">Cannabis :</label>
-        <input type="number" id="cannabis" value="0"><br>
-        <label for="argentSolo">Argent :</label>
-        <input type="number" id="argentSolo" value="0"><br>
+            <label for="cocaine">Cocaïne :</label>
+            <input type="number" id="cocaine" value="0"><br>
+            <label for="cannabis">Cannabis :</label>
+            <input type="number" id="cannabis" value="0"><br>
+            <label for="argentSolo">Argent :</label>
+            <input type="number" id="argentSolo" value="0"><br>
+        </fieldset>
     </div><br>
 
     <div>
@@ -66,16 +77,53 @@
         <input type="checkbox" id="player4_active">
         <input type="number" id="player4_pct" placeholder="Pourcentage"><br>
     </div><br>
+    <div>
+        <fieldset id="bonus">
+            <h3>Veuillez choisir les bonus (facultatif)</h3>
+            <p>Attention, ceux qui sont avec un "*" sont faisable <strong>qu'une seule fois</strong></p>
 
-    <label for="defiElite">Défi élite</label>
-    <input type="checkbox" id="defiElite"><br>
+            <div class="bonus-item">
+                <label for="firstTry">Bonus première fois *</label>
+                <input type="checkbox" id="firstTry">
+            </div>
 
-    <label for="modeDifficile">Mode difficile</label>
-    <input type="checkbox" id="modeDifficile"><br>
+            <div class="bonus-item">
+                <label for="bonusSolo">Bonus Solo</label>
+                <input type="checkbox" id="bonusSolo">
+            </div>
 
+            <div class="bonus-item">
+                <label for="bonusQuatuor">Bonus Quatuor</label>
+                <input type="checkbox" id="bonusQuatuor">
+            </div>
+
+            <div class="bonus-item">
+                <label for="eliteDefi">Défi Elite</label>
+                <input type="checkbox" id="eliteDefi">
+            </div>
+
+            <div class="bonus-item">
+                <label for="difficileMod">Mode Difficile</label>
+                <input type="checkbox" id="difficileMod">
+            </div>
+
+            <div class="bonus-item">
+                <label for="travelPlans">Différentes approches *</label>
+                <input type="checkbox" id="travelPlans">
+            </div>
+
+            <div class="bonus-item">
+                <label for="cayoProffessionnal">Professionnel des Cayo *</label>
+                <input type="checkbox" id="cayoProffessionnal">
+            </div>
+        </fieldset>
+
+    </div>
+
+    <button type="button">Aléatoire </button><br>
     
-    <button type="button">Calculez</button>
-    <div id="result" style="margin-top:20px; padding:10px; border:1px solid #ccc;"></div>
+    <button type="button" id="calculBtn">Calculez</button>
+    <div id="result" style="margin-top:20px; padding:10px; border:none;"></div>
 
 </body>
 <script src="script.js"></script>
