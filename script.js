@@ -20,21 +20,7 @@ const primaryTargets = {
 };
 
 // ---------------------------
-// 💎 Bonus spécifiques
-// ---------------------------
-// Montants selon les checkboxes de ton fieldset
-const bonuses = {
-  firstTry:        { label: "Bonus première fois",      value: 200000, unique: true },
-  bonusSolo:       { label: "Bonus Solo",               value: 100000, unique: false },
-  bonusQuatuor:    { label: "Bonus Quatuor",            value: 100000, unique: false },
-  eliteDefi:       { label: "Défi Elite",               value: 200000, unique: false },
-  difficileMod:    { label: "Mode Difficile",           value: 200000, unique: false },
-  travelPlans:     { label: "Différentes approches",    value: 250000, unique: true },
-  cayoProffessionnal: { label: "Professionnel des Cayo", value: 150000, unique: true }
-};
-
-// ---------------------------
-// 🧮 Fonctions utilitaires
+// 🔧 Utilitaires
 // ---------------------------
 function getAvailableStacks() {
   let stocks = {};
@@ -51,6 +37,7 @@ function fillOneBag(stocks) {
   let gain = 0;
   let details = [];
 
+  // Trier par ratio valeur/poids
   const sorted = Object.entries(secondaryTargets)
     .map(([k, v]) => ({ key: k, ...v, ratio: v.value / v.weight }))
     .sort((a, b) => b.ratio - a.ratio);
@@ -64,7 +51,9 @@ function fillOneBag(stocks) {
     let take = Math.min(available, maxCanTake);
 
     if (take > 0) {
-      details.push(`${take.toFixed(2)} ${item.label}`);
+      const poidsUtilisé = take * item.weight;
+      const pourcent = (poidsUtilisé / 1) * 100;
+      details.push(`${item.label} (${take.toFixed(2)}, ${pourcent.toFixed(0)}%)`);
       gain += take * item.value;
       capacity -= take * item.weight;
       stocks[item.key] -= take;
@@ -76,24 +65,9 @@ function fillOneBag(stocks) {
 
 function getPrimaryValue() {
   const select = document.querySelector('select[name="principal"]');
+  const hard = document.getElementById("difficileMod")?.checked;
   const data = primaryTargets[select.value];
-  const hard = document.getElementById("difficileMod")?.checked; // mode difficile
   return hard ? data.hard : data.normal;
-}
-
-function getBonusTotal() {
-  let total = 0;
-  let details = [];
-
-  for (let key in bonuses) {
-    const checkbox = document.getElementById(key);
-    if (checkbox && checkbox.checked) {
-      total += bonuses[key].value;
-      details.push(bonuses[key].label + ` (+${bonuses[key].value.toLocaleString()} $)`);
-    }
-  }
-
-  return { total, details };
 }
 
 // ---------------------------
@@ -112,14 +86,12 @@ document.getElementById("calculBtn").addEventListener("click", () => {
   // 👥 Joueurs actifs
   let joueurs = [];
   for (let i = 1; i <= 4; i++) {
-    const active = document.getElementById(`player${i}_active`)?.checked;
+    const active = document.getElementById(`player${i}_active`).checked;
     if (active) joueurs.push({ id: i });
   }
-  if (joueurs.length === 0) {
-    joueurs.push({ id: 1 });
-  }
+  if (joueurs.length === 0) joueurs.push({ id: 1 }); // solo par défaut
 
-  // 🎒 Remplir les sacs secondaires
+  // 💰 Remplir les sacs
   let totalSecondaires = 0;
   joueurs.forEach((j) => {
     const { gain, details } = fillOneBag(stocks);
@@ -128,30 +100,32 @@ document.getElementById("calculBtn").addEventListener("click", () => {
     totalSecondaires += gain;
   });
 
-  // ✅ Bonus cochés
-  const { total: bonusTotal, details: bonusDetails } = getBonusTotal();
+  // 💰 Total (principal + secondaires)
+  let total = primaryValue + totalSecondaires;
 
-  // 💰 Total (principal + secondaires + bonus)
-  const total = primaryValue + totalSecondaires + bonusTotal;
-  
-  // 🔥 Affichage
-  let html = `<h2>💰 Résultats 💰</h2>
-    <p><strong>Total butin :</strong> ${total.toLocaleString()} $<br>
-    (Principal : ${primaryValue.toLocaleString()} $)<br>
-    (Secondaires : ${totalSecondaires.toLocaleString()} $)</p>`;
+  // 🧾 Retirer la part PNJ (Madrazo/Lester)
+  const fraisPNJ = total * 0.10;
+  total -= fraisPNJ;
 
-  if (bonusDetails.length > 0) {
-    html += `<p><strong>Bonus :</strong><br>${bonusDetails.join("<br>")}<br>
-    Total bonus : ${bonusTotal.toLocaleString()} $</p>`;
+  // 📌 Vérifier si la checkbox "retirer frais de préparation" est cochée
+  const prepCheckbox = document.getElementById("prepFrais"); // ajoute-la dans ton HTML
+  if (prepCheckbox && prepCheckbox.checked) {
+    // exemple : frais fixes de 25 000
+    total -= 25000;
   }
+
+  // 🔥 Affichage
+  let html = `<h2>💰 Résultats</h2>
+  <p><strong>Total butin après PNJ/frais :</strong> ${total.toLocaleString()} $<br>
+  (dont principal : ${primaryValue.toLocaleString()} $)</p>`;
 
   joueurs.forEach((j) => {
     const pctInput = document.getElementById(`player${j.id}_pct`);
     const pct = parseFloat(pctInput?.value) || 100 / joueurs.length;
     const gainPart = (total * pct) / 100;
 
-    html += `<p>🎒 Joueur ${j.id} : <strong>${gainPart.toLocaleString()} $</strong> (${pct}%)<br>
-    <em>Contenu sac : ${j.details.length ? j.details.join(", ") : "Rien"}</em></p>`;
+    html += `<p>🎒 Joueur ${j.id} : <strong>${gainPart.toLocaleString()} $</strong> (${pct}%)
+    <br><em>Sac : ${j.details.length ? j.details.join(", ") : "Rien"}</em></p>`;
   });
 
   resultDiv.innerHTML = html;
