@@ -2,6 +2,11 @@ body{
     margin: 0;
     text-align: center;
     background-color: #e1d798;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+*{
+    cursor: url("../cursor.cur"), auto !important;
 }
 
 h1{
@@ -13,21 +18,28 @@ h1{
 }
 
 button{
+    margin: 7px 0;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: url("../cursor.cur"), auto;
     border: none;
     border-radius: 5px;
-    background-color: #6ea171;
-    color: white;
+    background: #377828;
+    background: linear-gradient(90deg,rgb(68, 147, 50) 0%, rgba(41, 128, 78, 1) 100%);
+    color: #fff;
 
-    transition: 0.3s ease-in;
+    transition: 0.5s ease-in-out;
 }
 
 button:hover{
-    transform: scale(1.2);
+    background: linear-gradient(90deg,rgba(41, 128, 78, 1) 0%, rgb(68, 147, 50) 100%);
+    font-size: 135%;
+
 }
 
 .ligne label {
     display: inline-block;
-    width: 100px; /* largeur fixe pour aligner les inputs */
+    width: 100px;
 }
 
 .ligne input[type="number"] {
@@ -39,3 +51,38 @@ button:hover{
 em{
     font-style: normal;
 }
+
+
+fieldset{
+    border: #377828 2px solid;
+    border-radius: 25px;
+    max-width: 550px;
+    width: 90%;
+    margin: 20px auto;
+    background-color: #dfd8a4;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#bonus {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px 30px;
+  text-align: left;
+}
+
+#bonus h3,
+#bonus p {
+    text-align: center;
+    grid-column: 1 / -1;
+    margin: 0 0 10px 0;
+}
+
+#bonus p{
+    font-style: italic
+}
+
+
+.bonus-item label {
+  flex: 1;
+}
+
