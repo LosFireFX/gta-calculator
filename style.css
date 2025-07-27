@@ -7,9 +7,12 @@ body{
 
 }
 
+/*#BA55D3  */
+/*#9932CC  */
+
 #discord{
     text-decoration: none;
-    color: 	#BA55D3;
+    color: red;
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
 
@@ -18,7 +21,7 @@ body{
 
 #discord:hover{
     text-decoration: underline;
-    color: #9932CC;
+    color: vert;
 }
 
 h1{
