@@ -20,6 +20,20 @@ const primaryTargets = {
 };
 
 // ---------------------------
+// 💎 Bonus spécifiques
+// ---------------------------
+// Montants selon les checkboxes de ton fieldset
+const bonuses = {
+  firstTry:        { label: "Bonus première fois",      value: 200000, unique: true },
+  bonusSolo:       { label: "Bonus Solo",               value: 100000, unique: false },
+  bonusQuatuor:    { label: "Bonus Quatuor",            value: 100000, unique: false },
+  eliteDefi:       { label: "Défi Elite",               value: 200000, unique: false },
+  difficileMod:    { label: "Mode Difficile",           value: 200000, unique: false },
+  travelPlans:     { label: "Différentes approches",    value: 250000, unique: true },
+  cayoProffessionnal: { label: "Professionnel des Cayo", value: 150000, unique: true }
+};
+
+// ---------------------------
 // 🧮 Fonctions utilitaires
 // ---------------------------
 function getAvailableStacks() {
@@ -62,16 +76,30 @@ function fillOneBag(stocks) {
 
 function getPrimaryValue() {
   const select = document.querySelector('select[name="principal"]');
-  const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-  const hard = checkboxes[1]?.checked; // 2e checkbox = mode difficile
   const data = primaryTargets[select.value];
+  const hard = document.getElementById("difficileMod")?.checked; // mode difficile
   return hard ? data.hard : data.normal;
+}
+
+function getBonusTotal() {
+  let total = 0;
+  let details = [];
+
+  for (let key in bonuses) {
+    const checkbox = document.getElementById(key);
+    if (checkbox && checkbox.checked) {
+      total += bonuses[key].value;
+      details.push(bonuses[key].label + ` (+${bonuses[key].value.toLocaleString()} $)`);
+    }
+  }
+
+  return { total, details };
 }
 
 // ---------------------------
 // 🚀 Calcul principal
 // ---------------------------
-document.querySelector("button").addEventListener("click", () => {
+document.getElementById("calculBtn").addEventListener("click", () => {
   const resultDiv = document.getElementById("result");
   resultDiv.innerHTML = ""; // reset affichage
 
@@ -84,14 +112,14 @@ document.querySelector("button").addEventListener("click", () => {
   // 👥 Joueurs actifs
   let joueurs = [];
   for (let i = 1; i <= 4; i++) {
-    const active = document.getElementById(`player${i}_active`).checked;
+    const active = document.getElementById(`player${i}_active`)?.checked;
     if (active) joueurs.push({ id: i });
   }
   if (joueurs.length === 0) {
-    joueurs.push({ id: 1 }); // solo par défaut
+    joueurs.push({ id: 1 });
   }
 
-  // 💰 Remplir les sacs
+  // 🎒 Remplir les sacs secondaires
   let totalSecondaires = 0;
   joueurs.forEach((j) => {
     const { gain, details } = fillOneBag(stocks);
@@ -100,13 +128,22 @@ document.querySelector("button").addEventListener("click", () => {
     totalSecondaires += gain;
   });
 
-  // 💰 Total (principal + secondaires)
-  const total = primaryValue + totalSecondaires;
+  // ✅ Bonus cochés
+  const { total: bonusTotal, details: bonusDetails } = getBonusTotal();
+
+  // 💰 Total (principal + secondaires + bonus)
+  const total = primaryValue + totalSecondaires + bonusTotal;
   
   // 🔥 Affichage
-  let html = `<h2>💰 Résultats</h2>
-  <p><strong>Total butin :</strong> ${total.toLocaleString()} $<br>
-  (Dont principal : ${primaryValue.toLocaleString()} $)</p>`;
+  let html = `<h2>💰 Résultats 💰</h2>
+    <p><strong>Total butin :</strong> ${total.toLocaleString()} $<br>
+    (Principal : ${primaryValue.toLocaleString()} $)<br>
+    (Secondaires : ${totalSecondaires.toLocaleString()} $)</p>`;
+
+  if (bonusDetails.length > 0) {
+    html += `<p><strong>Bonus :</strong><br>${bonusDetails.join("<br>")}<br>
+    Total bonus : ${bonusTotal.toLocaleString()} $</p>`;
+  }
 
   joueurs.forEach((j) => {
     const pctInput = document.getElementById(`player${j.id}_pct`);
